@@ -1,0 +1,24 @@
+{% extends "admin/news_changelist.html" %}
+{% load i18n %}
+
+{% block content %}
+  <div class="dashboard">
+    <div class="topic-stats">
+      <h2>Thống kê tin tức theo chủ đề</h2>
+      <ul>
+        {% for topic, count in news_by_topic.items %}
+          <li>{{ topic }}: {{ count }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% comment %} <div class="month-stats">
+      <h2>Thống kê tin tức theo tháng</h2>
+      <ul>
+        {% for month, count in news_by_month.items %}
+          <li>{{ month }}: {{ count }}</li>
+        {% endfor %}
+      </ul>
+    </div> {% endcomment %}
+  </div>
+  {{ block.super }}
+{% endblock %}

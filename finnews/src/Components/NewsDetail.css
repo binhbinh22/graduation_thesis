@@ -1,0 +1,8 @@
+.content {
+    color: black !important;
+  }
+  
+  .content-scrollable {
+    white-space: pre-line; /* Đảm bảo giữ nguyên định dạng và dấu xuống dòng */
+  }
+  

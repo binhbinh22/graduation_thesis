@@ -1,0 +1,19 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}Finnews Admin{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Finnews Admin</a></h1>
+{% endblock %}
+
+{% block userlinks %}
+  <div id="user-tools">
+    {% if user.is_active and user.is_authenticated %}
+      {% comment %} {% trans 'Xin chào,' %} <strong>{{ user.get_username }}</strong>. {% endcomment %}
+      <a href="{% url 'admin_logout' %}">{% trans 'Đăng xuất' %}</a>
+    {% else %}
+      <a href="{% url 'admin:login' %}">{% trans 'Log in' %}</a>
+    {% endif %}
+  </div>
+{% endblock %}
