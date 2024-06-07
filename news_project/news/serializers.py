@@ -1,4 +1,4 @@
-from .models import News, User, Tag, NewsTag# , UserTag
+from .models import News, User, Tag, NewsTag , UserTag, History, Save, Search, NewsSearch
 from rest_framework import serializers
 from rest_framework import generics
 
@@ -7,11 +7,21 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = '__all__'
 
-# class UserTagSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = UserTag
-#         fields = '__all__'
+class SearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Search
+        fields = '__all__'
 
+class NewsSearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewsSearch
+        fields = '__all__'
+
+class UserTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserTag
+        fields = '__all__'
+        
 class NewsTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewsTag
@@ -48,5 +58,13 @@ class AdminUserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
+class HistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = History
+        fields = '__all__'
 
+class SaveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Save
+        fields = '__all__'
 

@@ -10,7 +10,7 @@ django.setup()
 
 from news.models import News
 
-url = "https://vnexpress.net/kinh-doanh/chung-khoan"
+url = "https://vnexpress.net/chu-de/gia-vang-1403"
 
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
@@ -41,7 +41,7 @@ for link in article_links:
     link_img = img_tag['data-src'] if img_tag else 'N/A'
 
     # Topic và author cố định
-    topic = 'chứng khoán'
+    topic = 'Giá vàng'
     author = 'VNexpress'
     
     # Lưu thông tin vào cơ sở dữ liệu

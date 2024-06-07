@@ -1,0 +1,106 @@
+/* LoginModal.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .login-container {
+    max-width: 800px;
+    height: 300px;
+    margin: 10px auto ;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-container input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .login-container button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #669ee7;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .login-container button:hover {
+    background-color: #6082e1;
+  }
+  
+  .login-container {
+    max-width: 800px;
+    height: 300px;
+    margin: 10px auto ;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-container input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    
+    width: 336px;
+  }
+  
+  .login-container button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #669ee7;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .login-container button:hover {
+    background-color: #6082e1;
+  }

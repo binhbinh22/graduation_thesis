@@ -1,8 +1,13 @@
+
+
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Gold = () => {
     const [news, setNews] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [newsPerPage] = useState(7);
 
     useEffect(() => {
         const fetchNews = async () => {
@@ -12,7 +17,8 @@ const Gold = () => {
                     throw new Error('Failed to fetch news');
                 }
                 const data = await response.json();
-                setNews(data);
+                const sortedNews = data.sort((a, b) => b.id - a.id);
+                setNews(sortedNews);
             } catch (error) {
                 console.error('Error fetching news:', error);
             }
@@ -21,9 +27,21 @@ const Gold = () => {
         fetchNews();
     }, []);
 
+    // Tính index của tin tức đầu tiên trên trang hiện tại
+    const indexOfLastNews = currentPage * newsPerPage;
+    const indexOfFirstNews = indexOfLastNews - newsPerPage;
+    const currentNews = news.slice(indexOfFirstNews, indexOfLastNews);
+
+    // Logic cho việc chuyển trang
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const nextPage = () => setCurrentPage(currentPage + 1);
+    const prevPage = () => setCurrentPage(currentPage - 1);
+
     return (
-        <div>
-            {news.map(item => (
+        <div style={{width: '900px', paddingLeft: '50px'}}>
+                <h2 style={{ marginBottom: '20px',marginTop: '1px'}} >Tin tức giá vàng</h2>
+
+            {currentNews.map(item => (
                 <Link to={`/news/${item.id}`} key={item.id} className="news-link">
                     <div className="News-item" style={{ display: 'flex', marginBottom: '20px' }}>
                         <img src={item.link_img} alt="Hình ảnh bài báo" style={{ width: '150px', marginRight: '20px' }} />
@@ -37,6 +55,21 @@ const Gold = () => {
                     </div>
                 </Link>
             ))}
+            <ul className="pagination">
+                <li className="page-item">
+                    <button onClick={prevPage} className="page-link">Trang trước</button>
+                </li>
+                {Array.from({ length: Math.ceil(news.length / newsPerPage) }, (_, i) => (
+                    <li key={i} className="page-item">
+                        <button onClick={() => paginate(i + 1)} className="page-link">
+                            {i + 1}
+                        </button>
+                    </li>
+                ))}
+                <li className="page-item">
+                    <button onClick={nextPage} className="page-link">Trang tiếp theo</button>
+                </li>
+            </ul>
         </div>
     );
 }

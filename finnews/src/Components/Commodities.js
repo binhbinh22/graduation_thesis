@@ -22,7 +22,8 @@ const Commodities = () => {
     }, []);
 
     return (
-        <div>
+        <div style={{width: '900px', paddingLeft: '50px'}}>
+                <h2 style={{ marginBottom: '20px',marginTop: '1px'}} >Tin tức </h2>
             {news.map(item => (
                 <Link to={`/news/${item.id}`} key={item.id} className="news-link">
                     <div className="News-item" style={{ display: 'flex', marginBottom: '20px' }}>

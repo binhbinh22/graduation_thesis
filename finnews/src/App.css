@@ -67,9 +67,9 @@
   align-items: center; Đưa chữ ra giữa */
 }
 .header-login-btn{
-  padding: 10px;
+  padding:10px;
   background-color: #669ee7;
-  margin-top: 100px;
+  margin-top: 10px;
   color: white;
   border: none;
   border-radius: 5px;
@@ -107,7 +107,7 @@
 
 .navbar {
   background-color: #fff;
-  padding: 10px;
+  padding-left: 10px;
   text-decoration: none;
 
 }
@@ -117,7 +117,7 @@
   padding: 0;
   display: flex;
   text-decoration: none;
-
+  margin: 5px;
 }
 
 .navbar-item {
@@ -130,6 +130,7 @@
 .news-container {
   display: flex;
   flex-wrap: wrap;
+
 }
 
 .news-link {
@@ -167,15 +168,226 @@
   font-size: 1rem;
   color: black;
 }
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+}
+.pagination-container {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.pagination-button {
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: #6699ff; /* Màu xanh blue */
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0 5px;
+  /* padding: 5px 10px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  cursor: pointer; */ 
+}
+
+.pagination-button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.pagination-button:disabled {
+  background-color: #f1f1f1;
+  color: #ccc;
+  cursor: not-allowed;
+}
+.page-item {
+  margin: 0 5px;
+}
+
+.page-link {
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: #6699ff; /* Màu xanh blue */
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.page-link:hover {
+  background-color: #3366cc; /* Màu xanh blue tối hơn khi hover */
+}
+
+.user-interested-news {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  width: 1300px;
+
+}
+
+.user-interested-news .column {
+  flex: 1;
+  margin-right: 2px;
+}
+
+.user-interested-news .column:last-child {
+  margin-right: 0;
+}
+
+.news-item {
+  display: flex;
+  /* border: 1px solid #ccc; */
+  padding: 10px;
+  padding-bottom: 0px;
+  border-radius: 5px;
+  margin: 0px;
+  margin-bottom: 0px;
+
+  /* text-align: center; */
+}
+
+.news-item img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.view-more-btn {
+  position: absolute; /* Chuyển vị trí sang tuyệt đối */
+  padding: 10px;
+  background-color: #669ee7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  right: 20px; /* Cách bên phải 20px */
+  bottom: 20px; /* Điều chỉnh vị trí từ dưới lên nếu cần */
+  text-decoration: none;
+
+}
+.view-more-btn:hover {
+  background-color: #3366cc; 
+  color: white;
+}
+
+
+
+.general-news-section .news-item {
+  /* border: 1px solid #ccc; */
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 0px;
+}
+
+.general-news-section .news-item img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 20px;
+  gap: 20px;
+
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  /* gap: 20px; */
+}
+
+.news-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.news-item1 {
+  /* border: 1px solid #ccc; */
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 2px;
+  display: flex;
+  align-items: flex-start; /* căn các phần tử theo phía trên của item */
+  margin-bottom: 20px;
+  /* display: flex; */
+  flex-direction: column;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+
+}
+.news-item1:hover {
+  background-color: #f1f1f1;
+}
+
+.news-item:hover {
+  background-color: #f1f1f1;
+}
+
+.news-topic {
+  margin-top: 1px;
+  margin-bottom: 5px;
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.news-image {
+  width: 100%;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.news-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: black;
+}
+
+.news-content {
+  margin: 0;
+  font-size: 1rem;
+  color: black;
+}
+
+.news-time {
+  margin: 0;
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.news-author {
+  margin: 0;
+  font-size: 0.8rem;
+  color: gray;
+}
+
 
 /*NewsDetail*/
+.news-detail{
+  width: 900px;
+  margin-left: 50px;
+}
 .news-detail p {
   color: gray;
+  margin: 0px;
+
 }
 
 .news-detail .content {
   color: black;
   white-space: pre-line;
+  padding-top: 30px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 
@@ -208,10 +420,15 @@
   /* justify-content: center; căn giữa theo chiều ngang */
   /*align-items: center; /* căn giữa theo chiều dọc */
   /* độ cao của màn hình */
-  margin-left: 200px;
-  margin-right: 2px;
+  margin: 50px auto;
+  /* margin-left: 200px;
+  margin-right: 2px;*/
   margin-top: 20px; 
 }
+
+/* .header-search-btn{
+  margin-right: 40px; 
+} */
 
 input[type='text'] {
   /* align-items: center; */
@@ -240,6 +457,7 @@ button[type='submit']:hover {
 .register-container {
   max-width: 400px;
   margin: 50px auto;
+  margin-top:10px;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -275,6 +493,7 @@ button[type='submit']:hover {
 /*Login*/
 .login-container {
   max-width: 800px;
+  height: 300px;
   margin: 10px auto ;
   padding: 20px;
   border: 1px solid #ddd;
@@ -326,3 +545,210 @@ button[type='submit']:hover {
   color: #666;
 }
 
+
+/*select-tag*/
+.select-tag-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  margin: 1px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.tag-button {
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tag-button:hover {
+  background-color: #e0e0e0;
+}
+
+.tag-button.selected {
+  background-color: #add8e6; /* Blue light color */
+}
+
+.save-button {
+  padding: 10px;
+  background-color: #669ee7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.save-button:hover {
+  background-color: #557ac7;
+}
+
+
+/* Header styles */
+/* .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #669ee7;
+  color: white;
+} */
+
+/* .header-title {
+  font-size: 1.5rem;
+}
+
+.header-search {
+  flex-grow: 1;
+  margin: 0 20px;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+} */
+
+/* .header-register-btn,
+.header-login-btn,
+.header-logout-btn {
+  background: none;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  text-decoration: none;
+} */
+
+/* .header-register-btn:hover,
+.header-login-btn:hover,
+.header-logout-btn:hover {
+  background: #577ac6;
+} */
+
+.header-user-info {
+  width: 100px;
+  height: 80px;
+}
+
+.header-avatar {
+  width: 400px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.header-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  margin-right: 100px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 150px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.header-dropdown a,
+.header-dropdown button {
+  display: block;
+  padding: 10px;
+  text-align: left;
+  color: black;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.header-dropdown a:hover,
+.header-dropdown button:hover {
+  background-color: #f0f0f0;
+}
+
+/* User page styles */
+.user-container {
+  display: flex;
+  padding: 20px;
+  padding-left: 100px;
+  
+}
+
+.sidebar {
+  border-radius: 10px;
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  border: 2px solid #ddd;
+}
+
+.sidebar button {
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background-color: #f0f8ff;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  padding-top: 0px;
+  margin-top: 0px;
+
+
+}
+
+.profile {
+  max-width: 600px;
+  margin: auto;
+}
+
+.profile-view p {
+  margin: 10px 0;
+}
+
+.profile-edit label {
+  display: block;
+  margin: 10px 0;
+}
+
+.profile-edit input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.profile-edit button {
+  margin-top: 10px;
+  padding: 10px 20px;
+}

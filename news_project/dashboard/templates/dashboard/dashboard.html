@@ -1,0 +1,152 @@
+{% extends 'admin/base_site.html' %}
+
+{% block extrahead %}
+<style>
+    .dashboard-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-box {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-box h2 {
+        font-size: 1.2em;
+        color: #333;
+    }
+
+    .stat-box p {
+        font-size: 2em;
+        margin: 10px 0;
+        color: #007bff;
+    }
+
+    .chart-section {
+        margin-bottom: 30px;
+    }
+
+    .chart-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        color: #333;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container" style="padding-right: 10px;">
+    <div class="stat-box">
+        <h2>Tổng số bài viết</h2>
+        <p>{{ num_news }}</p>
+    </div>
+    <div class="stat-box">
+        <h2>Số chủ đề</h2>
+        <p>{{ topic_counts|length }}</p>
+    </div>
+    <div class="stat-box">
+        <h2>Nguồn tin</h2>
+        <p>{{ num_authors }}</p>
+    </div>
+    <div class="stat-box">
+        <h2>Số tag</h2>
+        <p>{{ num_tags }}</p>
+    </div>
+</div>
+
+<div class="chart-section">
+    <h2>Thống kê theo chủ đề</h2>
+    <canvas id="topicsChart" width="400" height="200"></canvas>
+</div>
+
+<div class="chart-section">
+    <h2>Thống kê theo Tags</h2>
+    <canvas id="tagsChart" width="400" height="200"></canvas>
+</div>
+
+<div class="chart-section">
+    <h2>Thống kê theo nguồn tin</h2>
+    <canvas id="authorsChart" width="400" height="200"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const topicsData = {
+        labels: Object.keys({{ topic_counts|safe }}),
+        datasets: [{
+            label: 'Số lượng bài viết',
+            data: Object.values({{ topic_counts|safe }}),
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const tagsData = {
+        labels: Object.keys({{ tag_counts|safe }}),
+        datasets: [{
+            label: 'Số lượng bài viết',
+            data: Object.values({{ tag_counts|safe }}),
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const authorsData = {
+        labels: Object.keys({{ author_counts|safe }}),
+        datasets: [{
+            label: 'Số lượng bài viết',
+            data: Object.values({{ author_counts|safe }}),
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const topicsChart = new Chart(document.getElementById('topicsChart'), {
+        type: 'bar',
+        data: topicsData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const tagsChart = new Chart(document.getElementById('tagsChart'), {
+        type: 'bar',
+        data: tagsData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const authorsChart = new Chart(document.getElementById('authorsChart'), {
+        type: 'bar',
+        data: authorsData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
+
+

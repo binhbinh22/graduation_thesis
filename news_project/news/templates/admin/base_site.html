@@ -6,7 +6,13 @@
 {% block branding %}
 <h1 id="site-name"><a href="{% url 'admin:index' %}">Finnews Admin</a></h1>
 {% endblock %}
-
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 {% block userlinks %}
   <div id="user-tools">
     {% if user.is_active and user.is_authenticated %}

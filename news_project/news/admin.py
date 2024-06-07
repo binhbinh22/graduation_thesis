@@ -1,16 +1,75 @@
 # admin.py
 from django.db.models import Count
 from django.contrib import admin
-from .models import News, Tag, NewsTag #, UserTag
+from .models import News, Tag, NewsTag , UserTag, History, Save, Search, NewsSearch
 from django.db.models.functions import TruncMonth
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
+
+
+from django.core.management import call_command
+from django.contrib import messages
+
+
+
+
+admin.site.unregister(Group)
+#admin.site.unregister(Token)
+
+class UserTagInline(admin.TabularInline):
+    model = UserTag
+    extra = 1
+
+class UserAdmin(admin.ModelAdmin):
+    inlines = (UserTagInline,)
+
+@admin.register(NewsSearch)
+class NewsSearchAdmin(admin.ModelAdmin):
+    list_display = ('search', 'news')
+    list_filter = ['search',]
+
+@admin.register(NewsTag)
+class NewsTagAdmin(admin.ModelAdmin):
+    list_display = ('tag', 'news')
+    list_filter = ['tag',]
+
+class NewsSearchInline(admin.TabularInline):
+    model = NewsSearch
+    extra = 1 
+class NewsTagInline(admin.TabularInline):
+    model = NewsTag
+    extra = 2
+
+class SearchAdmin(admin.ModelAdmin):
+    inlines = [NewsSearchInline]
+
+class TagAdmin(admin.ModelAdmin):
+    inlines = [NewsTagInline]
+
+class UserTagInline(admin.TabularInline):
+    model = UserTag
+    extra = 1  
+
+@admin.register(UserTag)
+class UserTagAdmin(admin.ModelAdmin):
+    pass
+
+# admin.site.register(UserTag, UserTagAdmin)
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
+admin.site.register(Tag, TagAdmin)
+admin.site.register(History)
+admin.site.register(Save)
+admin.site.register(Search, SearchAdmin)
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
+    inlines =  [NewsSearchInline, NewsTagInline]
     list_display = ['title', 'topic', 'time', 'author']
     search_fields = ['title', 'content']
     list_filter = ['topic','author']
-
+    list_per_page =10
     def changelist_view(self, request, extra_context=None):
         # Get count of news by topic
         news_by_topic = News.objects.values('topic').annotate(total=Count('id'))
@@ -29,10 +88,6 @@ class NewsAdmin(admin.ModelAdmin):
         }
 
         return super().changelist_view(request, extra_context=context)
-
-admin.site.register(Tag)
-admin.site.register(NewsTag)
-#admin.site.register(UserTag)
 
 
 from django.urls import path
