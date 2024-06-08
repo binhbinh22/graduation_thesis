@@ -1,4 +1,4 @@
-#Ứng dụng LLM để trích xuất thông tin và gợi ý hành vi từ tin tức liên quan đến kinh tế, tài chính
+# Ứng dụng LLM để trích xuất thông tin và gợi ý hành vi từ tin tức liên quan đến kinh tế, tài chính
 
 BE:
 1. 	Mở terminal gõ: cd News_project
