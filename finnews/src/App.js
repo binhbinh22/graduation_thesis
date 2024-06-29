@@ -4,13 +4,15 @@ import Navbar from './Components/Navbar';
 import News from './Components/News';
 import NewsPage from './Components/NewsPage';
 import Gold from './Components/Gold';
+import Save from './Components/Save';
+import Highligh from './Components/Highligh';
 import Nongsan from './Components/Nongsan';
 import Commodities from './Components/Commodities';
 import  Petro from './Components/Petro';
 import  Finance from './Components/Finance';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
-import AdminPage from './Admin/AdminPage';
+// import AdminPage from './Admin/AdminPage';
 import Search from './Components/Search';
 import NewsDetail from './Components/NewsDetail';
 import './App.css';
@@ -44,9 +46,11 @@ function App() {
             <Route path="/petro" element={<Petro />} />
             <Route path="/nongsan" element={<Nongsan />} />
             <Route path="/gold" element={<Gold />} />
+            <Route path="/save" element={<Save />} />
+            <Route path="/highligh" element={<Highligh />} />
             <Route path="/finance" element={<Finance />} />
             <Route path="/news/:id" element={<NewsDetail />} />
-            <Route path="/admin/*" element={<AdminPage />} />
+            {/* <Route path="/admin/*" element={<AdminPage />} /> */}
             <Route path="/search" element={<Search />} />
             <Route path="*" element={<Navigate to="/" />} />
             <Route path="/register" element={<Register/>} />

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../Contexts/AuthContext';
+// import './Search.css';
+import { Link } from 'react-router-dom';
 
 const SaveNews = () => {
   const [saveNews, setSaveNews] = useState([]);
@@ -21,7 +23,7 @@ const SaveNews = () => {
           throw new Error('Failed to fetch read news');
         }
         const data = await response.json();
-        console.log('Fetched read news data:', data);  // In ra dữ liệu nhận được
+        console.log('Fetched read news data:', data);  
         setSaveNews(data);
       } catch (error) {
         console.error('Error fetching read news:', error);
@@ -39,6 +41,7 @@ const SaveNews = () => {
       <h2 style={{marginTop: '0px'}}>Tin tức đã lưu</h2>
       <div className="read-news-container">
         {saveNews.map((item) => (
+          <Link to={`/news/${item.news}`} key={item.news} className="news-link">
           <div className="news-item" key={item.id} style={{width: '900px'}} >
             <img src={item.link_img} alt="Hình ảnh bài báo" style={{ width: '150px', marginRight: '20px' }} />
             <div className="news-item-content" style={{ flex: 1 }}>
@@ -49,6 +52,7 @@ const SaveNews = () => {
               <p style={{ margin: 0, fontSize: '0.8rem', color: 'gray' }}>{item.author}</p>
             </div>
           </div>
+          </Link>
         ))}
       </div>
     </div>

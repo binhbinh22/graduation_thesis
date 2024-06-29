@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
-url = "https://vnexpress.net/chu-de/gia-vang-1403"
+url = "https://vnexpress.net/kinh-doanh/ebank"
 
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
@@ -37,7 +37,7 @@ with open('vnexpress2.csv', 'w', newline='', encoding='utf-8') as csv_file:
         link_img = img_tag['data-src'] if img_tag else 'N/A'
 
         # Topic và author cố định
-        topic = 'chứng khoán'
+        topic = 'Tài chính'
         author = 'VNexpress'
         
         # Ghi thông tin vào file CSV

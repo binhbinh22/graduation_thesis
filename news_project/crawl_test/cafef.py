@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 
 # URL của trang cần trích xuất
-url = "https://cafef.vn/gia-vang.html"
+url = "https://cafef.vn/tai-chinh-ngan-hang.chn"
 
 # Gửi yêu cầu GET đến trang web
 response = requests.get(url)
@@ -13,7 +13,7 @@ response.encoding = 'utf-8'
 soup = BeautifulSoup(response.text, 'html.parser')
 
 # Tìm các bài viết
-articles = soup.find_all('h3', class_='box-category-link-title')
+articles = soup.find_all('div', class_='tlitem box-category-item')
 with open('cafef.csv', 'w', newline='', encoding='utf-8') as csv_file:
     # Tạo đối tượng CSV writer
     csv_writer = csv.writer(csv_file)
@@ -25,7 +25,7 @@ with open('cafef.csv', 'w', newline='', encoding='utf-8') as csv_file:
         # Lấy link bài viết
         link = article.find('a')['href']
         # Lấy tiêu đề bài viết
-        title = article.find('a')['title']
+        title = article.find('h1')['title']
         
         # Gửi yêu cầu GET đến trang chi tiết của bài viết
         article_response = requests.get("https://cafef.vn" + link)

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReadNews from './ReadNews';
 import SaveNews from './SaveNews'; 
+import SelectTag from './SelectTags'
 import { AuthContext } from '../Contexts/AuthContext';
 
 const User = () => {
@@ -20,7 +21,7 @@ const User = () => {
       case 'read':
         return <ReadNews />;
       case 'interests':
-        return <InterestedTopics />;
+        return <SelectTag />;
       default:
         return <Profile user={user} />;
     }
@@ -30,8 +31,8 @@ const User = () => {
     <div className="user-container">
       <div className="sidebar">
         <button onClick={() => setSelectedSection('profile')}>Thông tin cá nhân</button>
-        <button onClick={() => setSelectedSection('saved')}>Tin tức đã lưu</button>
-        <button onClick={() => setSelectedSection('read')}>Tin tức đã đọc</button>
+        <button onClick={() => setSelectedSection('saved')}>Tin tức yêu thích</button>
+        <button onClick={() => setSelectedSection('read')}>Lịch sử đọc tin</button>
         <button onClick={() => setSelectedSection('interests')}>Các chủ đề quan tâm</button>
       </div>
       <div className="content">
@@ -52,7 +53,7 @@ const Profile = ({ user }) => {
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/api/users/${user.id}/`, {
       headers: {
-        'Authorization': `Bearer ${user.token}`, // Assuming you are using token-based authentication
+        'Authorization': `Bearer ${user.token}`, 
       },
     })
     .then(response => response.json())
@@ -149,6 +150,7 @@ const InterestedTopics = () => (
 );
 
 export default User;
+
 
 
 // import React, { useState, useEffect, useContext } from 'react';

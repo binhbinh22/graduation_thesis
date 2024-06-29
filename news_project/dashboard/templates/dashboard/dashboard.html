@@ -16,6 +16,12 @@
         padding: 20px;
         text-align: center;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .stat-box:hover {
+        background-color: #e2e6ea;
     }
 
     .stat-box h2 {
@@ -38,42 +44,54 @@
         margin-bottom: 20px;
         color: #333;
     }
+
+    .chart-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .chart-full {
+        grid-column: span 2;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="dashboard-container" style="padding-right: 10px;">
-    <div class="stat-box">
+    <div class="stat-box" onclick="location.href='http://127.0.0.1:8000/admin/news/news/'">
         <h2>Tổng số bài viết</h2>
         <p>{{ num_news }}</p>
     </div>
-    <div class="stat-box">
+    <div class="stat-box" onclick="location.href='http://127.0.0.1:8000/admin/crawl/topic/'">
         <h2>Số chủ đề</h2>
         <p>{{ topic_counts|length }}</p>
     </div>
-    <div class="stat-box">
-        <h2>Nguồn tin</h2>
-        <p>{{ num_authors }}</p>
+    <div class="stat-box" onclick="location.href='http://127.0.0.1:8000/admin/crawl/crawl/'">
+        <h2>Đường dẫn lấy tin</h2>
+        <p>{{ num_url }}</p>
     </div>
-    <div class="stat-box">
+    <div class="stat-box" onclick="location.href='http://127.0.0.1:8000/admin/news/tag/'">
         <h2>Số tag</h2>
         <p>{{ num_tags }}</p>
     </div>
 </div>
 
-<div class="chart-section">
-    <h2>Thống kê theo chủ đề</h2>
-    <canvas id="topicsChart" width="400" height="200"></canvas>
-</div>
+<div class="chart-container">
+    <div class="chart-section">
+        <h2>Thống kê theo chủ đề</h2>
+        <canvas id="topicsChart" width="400" height="200"></canvas>
+    </div>
 
-<div class="chart-section">
-    <h2>Thống kê theo Tags</h2>
-    <canvas id="tagsChart" width="400" height="200"></canvas>
-</div>
+    <div class="chart-section">
+        <h2>Thống kê theo nguồn tin</h2>
+        <canvas id="authorsChart" width="400" height="200"></canvas>
+    </div>
 
-<div class="chart-section">
-    <h2>Thống kê theo nguồn tin</h2>
-    <canvas id="authorsChart" width="400" height="200"></canvas>
+    <div class="chart-section chart-full">
+        <h2>Thống kê theo Tags</h2>
+        <canvas id="tagsChart" width="800" height="200"></canvas>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

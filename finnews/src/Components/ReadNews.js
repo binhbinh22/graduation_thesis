@@ -37,7 +37,7 @@ const ReadNews = () => {
 
   return (
     <div>
-      <h2 style={{marginTop: '0px'}}>Tin tức đã đọc</h2>
+      <h2 style={{marginTop: '0px'}}>Lịch sử đọc tin</h2>
       <div className="read-news-container">
         {readNews.map((item) => (
           <div className="news-item" key={item.id} style={{width: '900px'}} >

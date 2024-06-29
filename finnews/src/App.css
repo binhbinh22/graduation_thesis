@@ -8,9 +8,9 @@
 }
 
 
-.news-container {
-  flex: 1; /* News container co giãn để lấp đầy phần còn lại của container */
-}
+/* .news-container {
+  flex: 1; /* News container co giãn để lấp đầy phần còn lại của container 
+} */
 
 
 .row {
@@ -30,20 +30,18 @@
 
 }
 
-.header {
+
+/*Header */
+/* .header {
   background-color: #f0f8ff;
   padding: 10px 10px;
   display: flex;
   justify-content: space-between;
-  flex: 0 0 auto; /* Header không co giãn */
+  /* #flex: 0 0 auto; Header không co giãn 
 }
 .header-title {
   color: #4169e1;
 }
-/* .header-buttons {
-  display: flex;
-  gap: 10px;
-} */
 .header-register-btn {
   padding: 10px 10px;
   background-color: #669ee7;
@@ -55,16 +53,7 @@
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  /* padding: 1px 2px;
-  background-color: #4169e1;
-  margin-left: 2px;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  display: flex;
-  align-items: center; Đưa chữ ra giữa */
+
 }
 .header-login-btn{
   padding:10px;
@@ -89,20 +78,97 @@
   text-decoration: none;}
 .header-user {
   display: flex;
-  /* align-items: center; */
+  /* align-items: center; 
   color: #4169e1;
 }
  .header-register-btn:hover, .header-login-btn:hover, .header-logout-btn:hover {
   background-color: #3151a1;
-}
-.header-search {
-  display: flex;
-  /* align-items: center; */
-  margin-right: 250px; 
-}
-/* .header-search input {
-  margin-right: 10px;
 } */
+.header {
+  background-color: #f0f8ff;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+  color: #4169e1;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.header-register-btn, .header-login-btn {
+  padding: 10px 20px;
+  background-color: #669ee7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.header-register-btn:hover, .header-login-btn:hover {
+  background-color: #3151a1;
+}
+
+.header-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.header-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding-right: 0px;
+
+  width: 120px;
+
+
+}
+
+.header-dropdown a, .header-dropdown button {
+  display: block;
+  padding: 10px 20px;
+  color:black;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.3s ease;
+}
+
+.header-dropdown a:hover, .header-dropdown button:hover {
+  background-color: #f0f8ff;
+}
+
+
+hr {
+  margin: 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+
 
 
 .navbar {
@@ -372,7 +438,7 @@
 
 
 /*NewsDetail*/
-.news-detail{
+/* .news-detail{
   width: 900px;
   margin-left: 50px;
 }
@@ -388,7 +454,7 @@
   padding-top: 30px;
   padding-left: 0px;
   padding-right: 0px;
-}
+} */
 
 
 
@@ -414,24 +480,13 @@
 }
 
 /*Search.js*/
-
- .search-container {
-  /* display: flex; */
-  /* justify-content: center; căn giữa theo chiều ngang */
-  /*align-items: center; /* căn giữa theo chiều dọc */
-  /* độ cao của màn hình */
+/* CSS của bạn */
+/* .search-container {
   margin: 50px auto;
-  /* margin-left: 200px;
-  margin-right: 2px;*/
   margin-top: 20px; 
 }
 
-/* .header-search-btn{
-  margin-right: 40px; 
-} */
-
 input[type='text'] {
-  /* align-items: center; */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -439,10 +494,8 @@ input[type='text'] {
 }
 
 button[type='submit'] {
-  
   padding: 10px;
   background-color: #669ee7;
-  /* margin-left: 100px; */
   color: white;
   border: none;
   border-radius: 5px;
@@ -452,6 +505,72 @@ button[type='submit'] {
 button[type='submit']:hover {
   background-color: #226dd0;
 }
+
+/* Thêm CSS cho highlight 
+.highlight {
+  background-color: yellow;
+}
+
+/* CSS cho advanced search button 
+button {
+  padding: 10px;
+  background-color: #669ee7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+button:hover {
+  background-color: #226dd0;
+}
+
+/* CSS cho keyword buttons 
+.keyword-button {
+  margin: 5px;
+  padding: 10px;
+  background-color: #669ee7;
+  border: 1px solid #669ee7;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.keyword-button:hover {
+  background-color: #226dd0;
+  color: white;
+} */
+
+
+
+ /* .search-container {
+
+  margin: 50px auto;
+
+  margin-top: 20px; 
+}
+
+
+
+input[type='text'] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+}
+
+button[type='submit'] {
+  padding: 10px;
+  background-color: #669ee7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type='submit']:hover {
+  background-color: #226dd0;
+} */
 
 /*Register.js*/
 .register-container {
@@ -642,7 +761,7 @@ button[type='submit']:hover {
   background: #577ac6;
 } */
 
-.header-user-info {
+/* .header-user-info {
   width: 100px;
   height: 80px;
 }
@@ -683,7 +802,7 @@ button[type='submit']:hover {
 .header-dropdown a:hover,
 .header-dropdown button:hover {
   background-color: #f0f0f0;
-}
+} */
 
 /* User page styles */
 .user-container {
@@ -715,8 +834,8 @@ button[type='submit']:hover {
 }
 
 .sidebar button:hover {
-  background-color: #f0f8ff;
-}
+  background-color: #226dd0;
+  color: white;}
 
 .content {
   flex: 1;
@@ -736,6 +855,21 @@ button[type='submit']:hover {
   margin: 10px 0;
 }
 
+.profile-view button {
+  margin: 5px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  color: black;    
+  border: 1px solid #669ee7;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-view button:hover {
+  background-color: #226dd0;
+  color: white;
+}
+
 .profile-edit label {
   display: block;
   margin: 10px 0;
@@ -749,6 +883,16 @@ button[type='submit']:hover {
 }
 
 .profile-edit button {
-  margin-top: 10px;
-  padding: 10px 20px;
+  margin: 5px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  color: black;    
+  border: 1px solid #669ee7;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-edit button:hover {
+  background-color: #226dd0;
+  color: white;
 }
