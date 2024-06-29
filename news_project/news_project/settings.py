@@ -10,6 +10,7 @@ SECRET_KEY = 'django-insecure-12kj-kw#c@m6bpm)^j)oi1yk1#in!kx8rw00+v*2sb8-rtf&cx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = []
 
 
@@ -29,6 +30,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'crawl',
+    'extract'
     # 'rest_framework.authtoken',
 
 

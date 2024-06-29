@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthContext';
@@ -145,7 +143,7 @@ const News = () => {
     return (
         <div>
             <div className="interested-news-section">
-                <h2 style={{ marginBottom: '10px', marginTop: '1px' }}>Tin khuyến nghị</h2>
+                <h2 style={{ marginBottom: '10px', marginTop: '1px',marginLeft: '50px' }}>Tin khuyến nghị</h2>
                 {renderUserInterestedNews()}
             </div>
             <hr />
@@ -161,6 +159,7 @@ const News = () => {
                                 <p style={{ margin: 0, fontSize: '0.8rem', color: 'gray' }}>{item.time}</p>
                                 <p style={{ margin: 0, fontSize: '1rem', color: 'black' }}>{item.content.split('\n')[0]}</p>
                                 <p style={{ margin: 0, fontSize: '0.8rem', color: 'gray' }}>{item.author}</p>
+                                <hr style={{marginTop: '10px'}}/>
                             </div>
                         </div>
                     </div>

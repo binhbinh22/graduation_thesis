@@ -1,0 +1,146 @@
+.search-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: 0px;
+    margin-right: 50px;
+
+    height: 800px;
+
+
+  }
+.test {
+    border: 1px solid #ccc;
+    border-radius:5px 5px 5px 5px;
+}
+  /* Left column for advanced search */
+.advanced-search {
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+    margin-right: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 2px 0cm rgba(0, 0, 0, 0.1);
+  }
+  
+.dropdown-toggle {
+    width: 100%;
+    text-align: left;
+  }
+  
+.dropdown-menu {
+    width: 100%;
+    text-align: left;
+  }
+  
+.dropdown-item {
+    cursor: pointer;
+  }
+  
+  /* Right column for search input and results */
+.search-results-container {
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+    padding: 20px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+
+    padding-right: 0px;
+
+  }
+  
+.search-input {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+.search-input input[type='text'] {
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+  }
+  
+.search-input button[type='submit'] {
+    /* padding: 10px; */
+    background-color: #669ee7;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+  }
+
+.search-input button[type='submit']:hover {
+    background-color: #226dd0;
+  }
+  
+/* .keyword-button {
+    margin: 5px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  } */
+  
+  /* .keyword-button:hover {
+    background-color: #ddd;
+  } */
+  
+  .news-item {
+    display: flex;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .news-item img {
+    width: 150px;
+    margin-right: 20px;
+  }
+  
+  .news-item-content {
+    flex: 1;
+  }
+  
+.highlight1 {
+    background-color: yellow;
+    font-weight: bold;
+  }
+  
+
+  input[type='text'] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+  }
+  
+  button[type='submit'] {
+    padding: 10px;
+    background-color: #669ee7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type='submit']:hover {
+    background-color: #226dd0;
+  }
+
+  .keyword-button {
+    margin: 5px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    color: black;    
+    border: 1px solid #669ee7;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .keyword-button:hover {
+    background-color: #226dd0;
+    color: white;
+  }
+
+  button:hover {
+    background-color: #226dd0;
+    color: white;
+  }

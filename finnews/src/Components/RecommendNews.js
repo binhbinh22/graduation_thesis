@@ -57,6 +57,7 @@ const Recommended_news = () => {
                             <p style={{ margin: 0, fontSize: '0.8rem', color: 'gray' }}>{item.time}</p>
                             <p style={{ margin: 0, fontSize: '1rem', color: 'black' }}>{item.content.split('\n')[0]}</p>
                             <p style={{ margin: 0, fontSize: '0.8rem', color: 'gray' }}>{item.author}</p>
+                            <hr style={{marginTop: '10px'}}/>
                         </div>
                     </div>
                 </Link>

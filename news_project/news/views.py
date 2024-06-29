@@ -13,12 +13,12 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.shortcuts import get_list_or_404
-from .models import News, Tag, NewsTag, UserTag, History, Save, Search, NewsSearch
+from .models import News, Tag, NewsTag, UserTag, History, Save, Search, NewsSearch, Reason
 from rest_framework import generics, filters
-from .serializers import TagSerializer,NewsTagSerializer , UserTagSerializer, SearchSerializer, NewsSearchSerializer
+from .serializers import TagSerializer,NewsTagSerializer , UserTagSerializer, SearchSerializer, NewsSearchSerializer, ReasonSerializer
 from rest_framework.decorators import api_view
 from .serializers import NewsSerializer
-from .models import Tag
+from .models import Tag,NewsReason, KeyReason
 
 @csrf_exempt
 @api_view(['POST'])
@@ -38,21 +38,10 @@ def register_user(request):
     return JsonResponse({'message': 'Phương thức yêu cầu không hợp lệ'}, status=405)
 
 
-# @csrf_exempt
-# def login_user(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         username = data.get('username')
-#         password = data.get('password')
-#         try:
-#             user = authenticate(request, username=username, password=password)
-#             if user is not None:
-#                 return JsonResponse({'id': user.id, 'username': user.username, 'message': 'Đăng nhập thành công'}, status=200)
-#             else:
-#                 return JsonResponse({'message': 'Thông tin không hợp lệ'}, status=401)
-#         except Exception as e:
-#             return JsonResponse({'message': str(e)}, status=400)
-#     return JsonResponse({'message': 'Phương thức yêu cầu không hợp lệ'}, status=405)
+def get_relations(request):
+    relations = NewsTag.objects.values_list('relation', flat=True).distinct()
+    return JsonResponse(list(relations), safe=False)
+
 @csrf_exempt
 def login_user(request):
     if request.method == 'POST':
@@ -170,16 +159,11 @@ def get_read_news(request, user_id):
 @api_view(['GET'])
 def news_search(request, search_id):
     try:
-        # Lấy danh sách tin tức tương ứng với search_id
         news_search = NewsSearch.objects.filter(search_id=search_id)
-        # Kiểm tra xem có tin tức nào không
         if not news_search:
             return Response({'message': 'No news found for this search'}, status=404)
-        # Lấy danh sách id tin tức
         news_ids = [news.news_id for news in news_search]
-        # Lấy các tin tức từ id
         news_results = News.objects.filter(id__in=news_ids)
-        # Serialize kết quả
         serializer = NewsSerializer(news_results, many=True)
         return Response(serializer.data, status=200)
     except Exception as e:
@@ -189,16 +173,12 @@ def news_search(request, search_id):
 def recommended_news(request, user_id):
     try:
         user_tags = UserTag.objects.filter(user_id=user_id).values_list('tag', flat=True)
-        # Kiểm tra người dùng có chủ đề nào không
         if not user_tags:
             return Response({'message': 'No tags found for this user.'}, status=404)
-        # Lấy tất cả các tin tức liên quan đến các chủ đề người dùng đã chọn
         news_ids = NewsTag.objects.filter(tag__in=user_tags).values_list('news', flat=True)
         recommended_news = News.objects.filter(id__in=news_ids)
-        # Kiểm tra  tin tức 
         if not recommended_news:
             return Response({'message': 'No news found for the selected tags.'}, status=404)
-        # Chuyển đổi dữ liệu tin tức thành JSON
         serializer = NewsSerializer(recommended_news, many=True)
         return Response(serializer.data, status=200)
     
@@ -237,6 +217,30 @@ def get_tags(request):
     else:
         return JsonResponse({'message': 'Invalid request method'}, status=405)
 
+def get_reason(request):
+    if request.method == 'GET':
+        reason = Reason.objects.all().values('id', 'name')
+        return JsonResponse(list(reason), safe=False)
+    else:
+        return JsonResponse({'message': 'Invalid request method'}, status=405)
+
+@api_view(['GET'])
+def news_tag(request, tag_id):
+    try:
+        # Lấy danh sách tin tức tương ứng với search_id
+        news_tag = NewsTag.objects.filter(tag_id=tag_id)
+        # Kiểm tra xem có tin tức nào không
+        if not news_tag:
+            return Response({'message': 'No news found for this tag'}, status=404)
+        # Lấy danh sách id tin tức
+        news_ids = [news.news_id for news in news_tag]
+        # Lấy các tin tức từ id
+        news_results = News.objects.filter(id__in=news_ids)
+        # Serialize kết quả
+        serializer = NewsSerializer(news_results, many=True)
+        return Response(serializer.data, status=200)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
 def get_searchs(request):
     if request.method == 'GET':
         searchs = Search.objects.all().values('id', 'name')
@@ -289,14 +293,107 @@ def get_user(request, user_id):
     
     return JsonResponse({'message': 'Invalid request method'}, status=405)
 
-def search_news(request):
-    query = request.GET.get('q', '')
-    if query:
-        news_list = News.objects.filter(title__icontains=query)
-        results = [{'id': news.id, 'title': news.title, 'content': news.content, 'link_img': news.link_img, 'time': news.time, 'topic': news.topic, 'author': news.author} for news in news_list]
-    else:
-        results = []
-    return JsonResponse(results, safe=False)
+@csrf_exempt
+def get_relations_by_tag(request, tag_id):
+    if request.method == 'GET':
+        try:
+            tag = Tag.objects.get(id=tag_id)
+            news_tags = NewsTag.objects.filter(tag=tag).values_list('relation', flat=True).distinct()
+            return JsonResponse(list(news_tags), safe=False)
+        except Tag.DoesNotExist:
+            return JsonResponse({'error': 'Tag not found'}, status=404)
+
+@csrf_exempt
+def get_sentiments(request, reason_id):
+    if request.method == 'GET':
+        try:
+            reason = Reason.objects.get(id=reason_id)
+            key_reasons = KeyReason.objects.filter(reason=reason)
+            sentiments = NewsReason.objects.filter(keyreasons__in=key_reasons).values_list('sentiment', flat=True).distinct()
+            return JsonResponse(list(sentiments), safe=False)
+        except Reason.DoesNotExist:
+            return JsonResponse({'error': 'Reason not found'}, status=404)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+def get_news_by_tag_and_relation(request, tag_id, relation):
+    if request.method == 'GET':
+        try:
+            tag = Tag.objects.get(id=tag_id)
+            news_tags = NewsTag.objects.filter(tag=tag, relation=relation).select_related('news')
+            news_list = []
+            for news_tag in news_tags:
+                news_item = news_tag.news
+                news_dict = {
+                    'id': news_item.id,
+                    'time': news_item.time,
+                    'title': news_item.title,
+                    'content': news_item.content,
+                    'topic': news_item.topic,
+                    'author': news_item.author,
+                    'link_img': news_item.link_img,
+                    'info_extrac': news_item.info_extrac,
+                }
+                news_list.append(news_dict)
+            return JsonResponse(news_list, safe=False)
+        except Tag.DoesNotExist:
+            return JsonResponse({'error': 'Tag not found'}, status=404)
+        except NewsTag.DoesNotExist:
+            return JsonResponse({'error': 'News not found for this tag and relation'}, status=404)
+
+
+@csrf_exempt
+def get_news_by_reason_and_sentiment(request, reason_id, sentiment):
+    if request.method == 'GET':
+        try:
+            reason = Reason.objects.get(id=reason_id)
+            key_reasons = KeyReason.objects.filter(reason=reason)
+            news_reasons = NewsReason.objects.filter(keyreasons__in=key_reasons, sentiment=sentiment).select_related('news')
+            
+            news_list = []
+            for news_reason in news_reasons:
+                news_item = news_reason.news
+                news_dict = {
+                    'id': news_item.id,
+                    'time': news_item.time,
+                    'title': news_item.title,
+                    'content': news_item.content,
+                    'topic': news_item.topic,
+                    'author': news_item.author,
+                    'link_img': news_item.link_img,
+                    'info_extrac': news_item.info_extrac,
+                }
+                news_list.append(news_dict)
+                
+            return JsonResponse(news_list, safe=False)
+        except Reason.DoesNotExist:
+            return JsonResponse({'error': 'Reason not found'}, status=404)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+from django.db.models import Q
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import News
+from .serializers import NewsSerializer
+
+class SearchNewsAPIView(APIView):
+    def get(self, request):
+        query = request.GET.get('query', '').strip()
+        if query:
+            news = News.objects.filter(
+                Q(title__icontains=query) | Q(content__icontains=query)
+            )
+            serializer = NewsSerializer(news, many=True)
+            return Response(serializer.data)
+        else:
+            return Response([])
+
+
+
+
+
+
+
 
 def custom_logout(request):
     logout(request)
@@ -317,6 +414,10 @@ class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
+# class TopicViewSet(viewsets.ModelViewSet):
+#     queryset = Topic.objects.all()
+#     serializer_class = TopicSerializer
+
 class UserTagViewSet(viewsets.ModelViewSet):
     queryset = UserTag.objects.all()
     serializer_class = UserTagSerializer
@@ -333,6 +434,11 @@ class NewsTagViewSet(viewsets.ModelViewSet):
     queryset = NewsTag.objects.all()
     serializer_class = NewsTagSerializer
 
+
+class FeaturedNewsList(generics.ListAPIView):
+    queryset = News.objects.filter(is_featured=True).order_by('-id')
+    serializer_class = NewsSerializer
+    
 class GuestNewsList(generics.ListAPIView):
     queryset = News.objects.all().order_by('-id')
     serializer_class = NewsSerializer

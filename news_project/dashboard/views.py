@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from news.models import News, Tag
+from crawl.models import Crawl
 
 def dashboard(request):
+    num_url = Crawl.objects.count()-1
     num_news = News.objects.count()
     num_topics = len(News.TIME_CHOICES)
     topic_counts = {topic[0]: News.objects.filter(topic=topic[0]).count() for topic in News.TIME_CHOICES}
@@ -13,6 +15,7 @@ def dashboard(request):
     author_counts = {author['author']: News.objects.filter(author=author['author']).count() for author in authors}
 
     context = {
+        'num_url': num_url,
         'num_news': num_news,
         'num_topics': num_topics,
         'topic_counts': topic_counts,

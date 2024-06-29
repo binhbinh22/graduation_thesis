@@ -1,4 +1,4 @@
-from .models import News, User, Tag, NewsTag , UserTag, History, Save, Search, NewsSearch
+from .models import News, User, Tag, NewsTag , UserTag, History, Save, Search, NewsSearch, Reason
 from rest_framework import serializers
 from rest_framework import generics
 
@@ -6,6 +6,15 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = '__all__'
+
+class ReasonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reason
+        fields = '__all__'
+# class TopicSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Topic
+#         fields = '__all__'
 
 class SearchSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,7 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
 class GuestNewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
-        fields = ['id','time', 'title', 'content', 'topic', 'author', 'link_img']
+        fields = ['id','time', 'title', 'content', 'topic', 'author', 'link_img','info_extrac']
 
 class GuestNewsSearchSerializer(serializers.Serializer):
     event = serializers.CharField(required=False)
