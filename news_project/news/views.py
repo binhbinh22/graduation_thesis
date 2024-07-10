@@ -12,13 +12,50 @@ import json
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.http import JsonResponse
-from django.shortcuts import get_list_or_404
-from .models import News, Tag, NewsTag, UserTag, History, Save, Search, NewsSearch, Reason
+from django.shortcuts import get_object_or_404, render
+from .models import News, Tag, NewsTag, UserTag, History, Save, Reason
 from rest_framework import generics, filters
-from .serializers import TagSerializer,NewsTagSerializer , UserTagSerializer, SearchSerializer, NewsSearchSerializer, ReasonSerializer
+from .serializers import TagSerializer,NewsTagSerializer , UserTagSerializer, ReasonSerializer
 from rest_framework.decorators import api_view
 from .serializers import NewsSerializer
 from .models import Tag,NewsReason, KeyReason
+from crawl.models import Topic
+
+def get_topics(request):
+    if request.method == 'GET':
+        topics = Topic.objects.filter(is_show=True)
+        topic_list = [{'id': topic.id, 'name': topic.name, 'description': topic.description} for topic in topics]
+        return JsonResponse(topic_list, safe=False)
+
+
+def get_news_by_topic(request, topic_id):
+    topic = get_object_or_404(Topic, id=topic_id)
+    news_list = News.objects.filter(topic=topic.name)  # assuming `topic` is a string field in News
+    news_data = [
+        {
+            'id': news.id,
+            'time': news.time,
+            'title': news.title,
+            'content': news.content,
+            'topic': news.topic,
+            'author': news.author,
+            'link_img': news.link_img,
+            'info_extrac': news.info_extrac,
+        }
+        for news in news_list
+    ]
+    return JsonResponse(news_data, safe=False)
+
+def get_all_topics(request):
+    topics = Topic.objects.all()
+    topic_data = [
+        {
+            'id': topic.id,
+            'name': topic.name,
+        }
+        for topic in topics
+    ]
+    return JsonResponse(topic_data, safe=False)
 
 @csrf_exempt
 @api_view(['POST'])
@@ -156,18 +193,18 @@ def get_read_news(request, user_id):
         return JsonResponse({'error': str(e)}, status=400)
 
 
-@api_view(['GET'])
-def news_search(request, search_id):
-    try:
-        news_search = NewsSearch.objects.filter(search_id=search_id)
-        if not news_search:
-            return Response({'message': 'No news found for this search'}, status=404)
-        news_ids = [news.news_id for news in news_search]
-        news_results = News.objects.filter(id__in=news_ids)
-        serializer = NewsSerializer(news_results, many=True)
-        return Response(serializer.data, status=200)
-    except Exception as e:
-        return Response({'error': str(e)}, status=500)
+# @api_view(['GET'])
+# def news_search(request, search_id):
+#     try:
+#         news_search = NewsSearch.objects.filter(search_id=search_id)
+#         if not news_search:
+#             return Response({'message': 'No news found for this search'}, status=404)
+#         news_ids = [news.news_id for news in news_search]
+#         news_results = News.objects.filter(id__in=news_ids)
+#         serializer = NewsSerializer(news_results, many=True)
+#         return Response(serializer.data, status=200)
+#     except Exception as e:
+#         return Response({'error': str(e)}, status=500)
 
 @api_view(['GET'])
 def recommended_news(request, user_id):
@@ -241,12 +278,12 @@ def news_tag(request, tag_id):
         return Response(serializer.data, status=200)
     except Exception as e:
         return Response({'error': str(e)}, status=500)
-def get_searchs(request):
-    if request.method == 'GET':
-        searchs = Search.objects.all().values('id', 'name')
-        return JsonResponse(list(searchs), safe=False)
-    else:
-        return JsonResponse({'message': 'Invalid request method'}, status=405)
+# def get_searchs(request):
+#     if request.method == 'GET':
+#         searchs = Search.objects.all().values('id', 'name')
+#         return JsonResponse(list(searchs), safe=False)
+#     else:
+#         return JsonResponse({'message': 'Invalid request method'}, status=405)
 
 @csrf_exempt
 def user_list(request):
@@ -503,11 +540,11 @@ class NewsDetail(generics.RetrieveAPIView):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
 
-class NewsSearchViewSet(viewsets.ModelViewSet):
-    queryset = NewsSearch.objects.all()
-    serializer_class = NewsSearchSerializer
-class SearchViewSet(viewsets.ModelViewSet):
-    queryset = Search.objects.all()
-    serializer_class = SearchSerializer
+# class NewsSearchViewSet(viewsets.ModelViewSet):
+#     queryset = NewsSearch.objects.all()
+#     serializer_class = NewsSearchSerializer
+# class SearchViewSet(viewsets.ModelViewSet):
+#     queryset = Search.objects.all()
+#     serializer_class = SearchSerializer
 
 

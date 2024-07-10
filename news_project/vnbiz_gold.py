@@ -16,6 +16,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'news_project.settings')
 django.setup()
 
 from news.models import News, Tag, NewsTag
+from crawl.models import Crawl
 
 base_url = 'https://vietnambiz.vn/hang-hoa/vang.htm'
 
@@ -24,7 +25,6 @@ soup = BeautifulSoup(response.content, 'html.parser')
 
 articles = soup.find_all('h3', class_='title')
 
-# Thiết lập Google Generative AI
 llm = ChatGoogleGenerativeAI(model="gemini-1.0-pro", google_api_key="AIzaSyDbSQs2-ah4Y3ivz2-TlkqjtRM4S8hSs0I")
 
 class SearchSchema(BaseModel):
@@ -97,7 +97,6 @@ for article in articles:
     topic = 'Giá vàng'
     author = 'VietNamBiz'
     
-    # Trích xuất thông tin từ nội dung bài viết
     result = full_chain.invoke({"request": content})
     
     # Kiểm tra phản hồi trước khi giải mã JSON
@@ -111,14 +110,15 @@ for article in articles:
     news_item.save()
 
     # Lưu các chu_the vào bảng Tag và liên kết với News
-    extraction_data = json.loads(result.content) if result and result.content else {}
-    chu_the_list = extraction_data.get('chu_the', [])
+    # extraction_data = json.loads(result.content) if result and result.content else {}
+    # chu_the_list = extraction_data.get('chu_the', [])
     
-    for chu_the in chu_the_list:
-        tag, created = Tag.objects.get_or_create(name=chu_the)
-        NewsTag.objects.get_or_create(news=news_item, tag=tag)
+    # for chu_the in chu_the_list:
+    #     tag, created = Tag.objects.get_or_create(name=chu_the)
+    #     NewsTag.objects.get_or_create(news=news_item, tag=tag)
 
-    print(f"Saved news item: {title}")
+    # print(f"Saved news item: {title}")
+
 
 
 

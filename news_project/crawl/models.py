@@ -35,7 +35,8 @@ class Crawl(models.Model):
         ('VnEconomy', 'VnEconomy'),
         ('Mobiagri', 'Mobiagri'),
         ('Thanh niên', 'Thanh niên'),
-        ('Tapchicongthuong','Tạp chí công thương')
+        ('Tapchicongthuong','Tạp chí công thương'),
+        ('dantri','Dân trí')
     ]
     author = models.CharField(max_length=20, choices=AUTHOR_CHOICES)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)

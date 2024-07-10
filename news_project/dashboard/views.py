@@ -5,8 +5,9 @@ from crawl.models import Crawl
 def dashboard(request):
     num_url = Crawl.objects.count()-1
     num_news = News.objects.count()
-    num_topics = len(News.TIME_CHOICES)
-    topic_counts = {topic[0]: News.objects.filter(topic=topic[0]).count() for topic in News.TIME_CHOICES}
+    topics = News.objects.values('topic').distinct()
+    num_topics = topics.count()
+    topic_counts = {topic['topic']: News.objects.filter(topic=topic['topic']).count() for topic in topics}
     num_tags = Tag.objects.count()
     tag_counts = {tag.name: tag.newss.count() for tag in Tag.objects.all()}
     

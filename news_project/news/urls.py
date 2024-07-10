@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import NewsList, NewsDetail, SearchViewSet, NewsSearchViewSet
+from .views import NewsList, NewsDetail
 from rest_framework.routers import DefaultRouter
 from .views import GuestNewsViewSet, AdminNewsViewSet, AdminUserViewSet, GuestNewsList
 from . import views
@@ -22,7 +22,7 @@ router.register(r'news-tags', NewsTagViewSet)
 router.register(r'guest/news', GuestNewsViewSet, basename='guest_news')
 router.register(r'admin/news', AdminNewsViewSet, basename='admin_news')
 router.register(r'admin/users', AdminUserViewSet, basename='admin_users')
-router.register(r'searchs', SearchViewSet)
+# router.register(r'searchs', SearchViewSet)
 # router.register(r'search_news', NewsSearchViewSet)
 
 urlpatterns = [
@@ -50,14 +50,16 @@ urlpatterns = [
     path('save_news/', views.save_news, name='save_news'),
     path('get_save_news/<int:user_id>/', views.get_save_news, name='get_save_news'),
     path('search_news/', SearchNewsAPIView.as_view(), name='search_news'),    
-    path('news_search/<int:search_id>/', views.news_search, name='news_search'),
+    # path('news_search/<int:search_id>/', views.news_search, name='news_search'),
     path('news_tag/<int:tag_id>/', views.news_tag, name='news_tag'),
     path('relations/', views.get_relations,name='relation'),
     path('news_tags/<int:tag_id>/<str:relation>/', views.get_news_by_tag_and_relation, name='get_news_by_tag_and_relation'),
     path('relations/<int:tag_id>/', views.get_relations_by_tag, name='get_relations_by_tag'),
     path('news_reason/<int:reason_id>/<str:sentiment>/', views.get_news_by_reason_and_sentiment, name='get_news_by_reason_and_sentiment'),
     path('sentiments/<int:reason_id>/', views.get_sentiments, name='get_sentiments'),
-
+    # path('api/topics/', get_topics, name='get_topics'),
+    path('topics/', views.get_topics, name='get_topics'),
+    path('topics/<int:topic_id>/news/', views.get_news_by_topic, name='get_news_by_topic'),
 
     ]
 
