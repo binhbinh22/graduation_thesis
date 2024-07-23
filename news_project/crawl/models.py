@@ -4,28 +4,28 @@ class Topic(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     is_show = models.BooleanField(default=True)
-    tags = models.ManyToManyField('GroupTag', through='TopicTag')
+    # tags = models.ManyToManyField('GroupTag', through='TopicTag')
     class Meta:
         verbose_name_plural = "Quản lý chủ đề"
 
     def __str__(self):
         return self.name
 
-class GroupTag(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    class Meta:
-        verbose_name_plural = "Thiết lập nhóm Tag "
+# class GroupTag(models.Model):
+#     name = models.CharField(max_length=100)
+#     description = models.TextField()
+#     class Meta:
+#         verbose_name_plural = "Thiết lập nhóm Tag "
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
-class TopicTag(models.Model):
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    grouptag = models.ForeignKey(GroupTag, on_delete=models.CASCADE)
-    class Meta:
-        unique_together = ('topic', 'grouptag')
-        verbose_name_plural = "Quản lý chủ đề-nhóm Tag"
+# class TopicTag(models.Model):
+#     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+#     grouptag = models.ForeignKey(GroupTag, on_delete=models.CASCADE)
+#     class Meta:
+#         unique_together = ('topic', 'grouptag')
+#         verbose_name_plural = "Quản lý chủ đề-nhóm Tag"
 
 class Crawl(models.Model):
     AUTHOR_CHOICES = [
