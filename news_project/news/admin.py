@@ -379,11 +379,12 @@ class NewsAdmin(admin.ModelAdmin):
     list_editable = ['is_featured']
     actions = [extract_information,classify_reasons_action]
 
-    # def get_actions(self, request):
-    #     actions = super().get_actions(request)
-    #     if 'delete_selected' in actions:
-    #         del actions['delete_selected']
-    #     return actions
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
 
     def tieu_de(self, obj):
         return obj.title

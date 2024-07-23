@@ -4,37 +4,45 @@ from django.http import HttpResponseRedirect
 from django.utils.html import format_html
 from django.core.management import call_command
 from subprocess import Popen, PIPE
-from .models import Crawl, Topic, GroupTag, TopicTag
+from .models import Crawl, Topic
 from django.core.exceptions import ValidationError
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from django.db.models import Q
+from django import forms
 
-class TopicTagInline(admin.TabularInline):
-    model = TopicTag
-    extra = 2
+# class TopicTagInline(admin.TabularInline):
+#     model = TopicTag
+#     extra = 2
 # admin.site.register(TopicTag)
 
-class GroupTagAdmin(admin.ModelAdmin):
-    inlines = [TopicTagInline]
-    list_display = ('name','description')
-    def get_actions(self, request):
-        actions = super().get_actions(request)
-        if 'delete_selected' in actions:
-            del actions['delete_selected']
-        return actions
+# class GroupTagAdmin(admin.ModelAdmin):
+#     inlines = [TopicTagInline]
+#     list_display = ('name','description')
+#     def get_actions(self, request):
+#         actions = super().get_actions(request)
+#         if 'delete_selected' in actions:
+#             del actions['delete_selected']
+#         return actions
 
 # admin.site.register(GroupTag,GroupTagAdmin)
 
+# @receiver(pre_save, sender=Topic)
+# def check_duplicate_tag(sender, instance, **kwargs):
+#     # Kiểm tra xem topic đã tồn tại hay chưa
+#     existing_topic = Topic.objects.filter(name__iexact=instance.name).exists()
+#     if existing_topic:
+#         raise ValidationError('Topic đã tồn tại. Hãy thêm một Topic khác')
+
 @receiver(pre_save, sender=Topic)
 def check_duplicate_tag(sender, instance, **kwargs):
-    # Kiểm tra xem tag đã tồn tại hay chưa
-    existing_topic = Topic.objects.filter(name__iexact=instance.name).exists()
+    # Kiểm tra xem topic đã tồn tại hay chưa, ngoại trừ chính nó
+    existing_topic = Topic.objects.filter(Q(name__iexact=instance.name) & ~Q(id=instance.id)).exists()
     if existing_topic:
-        raise ValidationError('Tag đã tồn tại. Hãy thêm một Tag khác')
-
+        raise ValidationError('Topic đã tồn tại. Hãy thêm một Topic khác')
 #@admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-    inlines = [TopicTagInline]
+    # inlines = [TopicTagInline]
     list_display = ('name','is_show')
     def get_actions(self, request):
         actions = super().get_actions(request)
@@ -45,9 +53,9 @@ class TopicAdmin(admin.ModelAdmin):
         try:
             obj.full_clean()  
             super().save_model(request, obj, form, change)
-            messages.success(request, f"Thêm Tag '{obj.name}' thành công!")
+            messages.success(request, f"Thêm Topic '{obj.name}' thành công!")
         except ValidationError as e:
-            messages.error(request, f"Không thể thêm Tag: {e.message}")
+            messages.error(request, f"Không thể thêm Topic: {e.message}")
             return
 
     def response_add(self, request, obj, post_url_continue=None):
@@ -58,8 +66,6 @@ class TopicAdmin(admin.ModelAdmin):
 
         storage = messages.get_messages(request)
         storage.used = True
-
-
 
         return HttpResponseRedirect(redirect_url)
 
@@ -101,8 +107,18 @@ def crawl_news_action(request, crawl_id):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
+class CrawlAdminForm(forms.ModelForm):
+    class Meta:
+        model = Crawl
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['topic'].queryset = Topic.objects.filter(is_show=True)
+
 
 class CrawlAdmin(admin.ModelAdmin):
+    form = CrawlAdminForm
     list_display = ('nguon_tin','chu_de', 'duong_dan','is_extract', 'collect_news_button')
     list_filter = ('author', 'topic')
 

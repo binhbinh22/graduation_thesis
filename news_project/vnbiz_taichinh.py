@@ -80,6 +80,23 @@ def format_extraction_result(result):
 
     return formatted_result.strip()
 
+
+tag_aliases = {
+    "xăng RON 95-III": "xăng RON 95",
+    "xăng RON 95-V": "xăng RON 95",
+    "xăng E5RON 92": "xăng E5 RON 92",
+    "xăng E5 RON92": "xăng E5 RON 92",
+    "vàng bạc": "vàng",
+    "vàng nguyên liệu": "vàng",
+    "vàng miếng": "vàng",
+    "giá dầu WTI":"dầu WTI",
+    "giá dầu mazut": "dầu mazut",
+    "giá xăng E5 RON92" : "xăng E5 RON 92"
+}
+
+def normalize_tag(tag_name):
+    return tag_aliases.get(tag_name, tag_name)
+
 for article in articles:
     link = article.find('a')['href']
     full_link = f"https://vietnambiz.vn{link}"
@@ -113,10 +130,12 @@ for article in articles:
     # Lưu các chu_the vào bảng Tag và liên kết với News
     extraction_data = json.loads(result.content) if result and result.content else {}
     chu_the_list = extraction_data.get('chu_the', [])
-    
-    for chu_the in chu_the_list:
-        tag, created = Tag.objects.get_or_create(name=chu_the)
-        NewsTag.objects.get_or_create(news=news_item, tag=tag)
+    tinh_chat_list = extraction_data.get('tinh_chat', [])
+    for i, chu_the in enumerate(chu_the_list):
+        normalized_chu_the = normalize_tag(chu_the)
+        tag, created = Tag.objects.get_or_create(name=normalized_chu_the)
+        relation = tinh_chat_list[i] if i < len(tinh_chat_list) else None
+        NewsTag.objects.get_or_create(news=news_item, tag=tag, relation=relation)
 
     print(f"Saved news item: {title}")
 

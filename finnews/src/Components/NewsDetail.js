@@ -5,9 +5,10 @@ import InfoExtractModal from './InfoExtractModal';
 import saveIcon from './icons/bookmark.png';
 import infoIcon from './icons/info.png';
 import infoIcon1 from './icons/info.png';
+import ShareButton from './ShareButton';
+import shareIcon from './icons/star.png';
 
 import './NewsDetail.css';
-
 const NewsDetail = () => {
   const { id } = useParams();
   const [newsItem, setNewsItem] = useState(null);
@@ -133,12 +134,17 @@ const NewsDetail = () => {
           </button>
           <span className="tooltiptext">Xem thông tin quan trọng</span>
         </div>
-        <div className="tooltip">
+        {/* <div className="tooltip">
+          <ShareButton url={`http://localhost:3000/news/${id}`} />
+          <span className="tooltiptext">Chia sẻ lên Facebook</span>
+        </div> */}
+
+        {/* <div className="tooltip">
           <button className="action-btn" onClick={toggleModal}>
             <img src={infoIcon1} alt="Info1" />
           </button>
           <span className="tooltiptext">Các yếu tố liên quan</span>
-        </div>
+        </div> */}
       </div>
 
       <div className="news-detail-content">

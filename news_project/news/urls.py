@@ -9,10 +9,6 @@ from .views import TagViewSet, NewsTagViewSet, UserTagViewSet, user_list, Histor
 # urls.py
 from django.urls import path
 from .views import SearchNewsAPIView
-
-
-
-
 router = DefaultRouter()
 router.register(r'tags', TagViewSet)
 router.register(r'user-tags', UserTagViewSet)
