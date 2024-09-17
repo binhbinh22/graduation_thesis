@@ -14,5 +14,4 @@ FE:
 
 ## Kết quả\\
 ### Thiết lập nguồn tin 
-![alt]([https://drive.google.com/file/d/1vVEf5myUzy3XMcomC3TTLHqAfOuR_WLR/view?usp=drive_link](https://drive.google.com/file/d/1vVEf5myUzy3XMcomC3TTLHqAfOuR_WLR/view?usp=sharing))
-
+![alt](https://ibb.co/spT4SGz)
