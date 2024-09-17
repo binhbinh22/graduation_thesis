@@ -16,7 +16,7 @@ FE:
 ### Thiết lập nguồn tin 
 ![markdown](https://github.com/user-attachments/assets/8bb5923e-5c4c-4ac9-8eb8-14050117c454)
 ### Trích xuất thông tin và phân loại
-![33](https://github.com/user-attachments/assets/0e6820d1-5a4a-4392-8b05-e3908dce2e0c)
+![40](https://github.com/user-attachments/assets/f38e9177-b901-4699-a72e-78a07ba99663)
 ### Trang chủ người dùng
-![30](https://github.com/user-attachments/assets/a105b668-070d-41fd-8cfe-291fe8eca79e)
-![18](https://github.com/user-attachments/assets/6d99a173-3107-4937-a015-3eaea01e3e50)
+![38](https://github.com/user-attachments/assets/f1b31a9d-ac60-4175-b852-3789f94ddd3a)
+
