@@ -11,3 +11,8 @@ FE:
 2. Chạy: npm i
 3. Chạy: npm start
 4. Mở trình duyệt và chạy cổng http://127.0.0.1:3000/
+
+## Kết quả\\
+### Thiết lập nguồn tin 
+![alt](https://drive.google.com/file/d/1vVEf5myUzy3XMcomC3TTLHqAfOuR_WLR/view?usp=drive_link)
+
